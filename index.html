@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>北海岸三日親子行</title>
+<meta name="description" content="2026 國慶連假 10/9–10/11 一家三口：瑞芳・九份・基隆・金山 開車實戰導覽">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;800&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+/* Layout: a field manual — sticky day tabs, each stop a vertical card on a route rail; photos lead, numbers in tabular columns. */
+:root{
+  --bg:#f6f3ec;        /* warm paper */
+  --panel:#ffffff;
+  --fg:#1d2a33;        /* harbor ink */
+  --muted:#5e6b73;
+  --line:#d9d3c6;
+  --sea:#0f6b7a;       /* 基隆海 */
+  --sea-soft:#dbeef0;
+  --gold:#b8862b;      /* 金瓜石金 */
+  --gold-soft:#f5e8cc;
+  --rain:#3b5f8f;
+  --rain-soft:#e1e9f5;
+  --warn:#b4432e;
+  --warn-soft:#f8e3de;
+  --d1:#c8752a; --d2:#1f7f8f; --d3:#4f8a3c;
+  --display:"Noto Serif TC","Songti TC","PMingLiU",serif;
+  --body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141a1f;--panel:#1d252c;--fg:#ecf0f2;--muted:#a3b0b8;--line:#33404a;
+  --sea:#5fc1d0;--sea-soft:#163a42;--gold:#e0b25a;--gold-soft:#3a2f17;
+  --rain:#8fb3e6;--rain-soft:#1f2d42;--warn:#f08b76;--warn-soft:#44241e;
+  --d1:#e8964a;--d2:#4fb4c6;--d3:#7fc26a;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141a1f;--panel:#1d252c;--fg:#ecf0f2;--muted:#a3b0b8;--line:#33404a;
+  --sea:#5fc1d0;--sea-soft:#163a42;--gold:#e0b25a;--gold-soft:#3a2f17;
+  --rain:#8fb3e6;--rain-soft:#1f2d42;--warn:#f08b76;--warn-soft:#44241e;
+  --d1:#e8964a;--d2:#4fb4c6;--d3:#7fc26a;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:var(--sea)}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.25;margin:0;text-wrap:balance}
+.wrap{max-width:980px;margin:0 auto;padding-inline:16px;padding-block:0}
+.eyebrow{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.num{font-variant-numeric:tabular-nums}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+/* hero */
+.hero{position:relative;color:#fff;background:#1d2a33;overflow:hidden}
+.hero img{width:100%;height:min(62vw,460px);object-fit:cover;opacity:.78}
+.hero .txt{position:absolute;inset:auto 0 0 0;padding:28px 16px 24px;background:linear-gradient(transparent,rgba(10,18,24,.85) 55%)}
+.hero .txt>div{max-width:980px;margin:0 auto}
+.hero .eyebrow{color:#f3d9a0}
+.hero h1{font-size:clamp(1.9rem,6vw,3.2rem);font-weight:800;color:#fff}
+.hero p{margin:8px 0 0;max-width:60ch;color:#e7e3d8}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.badge{font-size:.82rem;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);padding:4px 10px;border-radius:999px;color:#fff}
+
+/* nav */
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--panel);border-bottom:1px solid var(--line)}
+.tabs .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.tabs a{flex:0 0 auto;padding:12px 14px;text-decoration:none;color:var(--muted);font-weight:500;border-bottom:3px solid transparent;white-space:nowrap}
+.tabs a:hover,.tabs a.on{color:var(--fg);border-color:var(--gold)}
+.tabs a[data-d="1"].on{border-color:var(--d1)}.tabs a[data-d="2"].on{border-color:var(--d2)}.tabs a[data-d="3"].on{border-color:var(--d3)}
+
+section.block{padding-block:40px;border-bottom:1px solid var(--line)}
+section.block h2{font-size:clamp(1.5rem,4vw,2.1rem);font-weight:800}
+.lead{color:var(--muted);max-width:62ch;margin:6px 0 22px}
+
+/* overview */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:760px){.grid3{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;min-width:0}
+.card h3{font-size:1.05rem;margin-bottom:8px}
+.card.d1{border-top:4px solid var(--d1)}.card.d2{border-top:4px solid var(--d2)}.card.d3{border-top:4px solid var(--d3)}
+.route{list-style:none;margin:0;padding:0;font-size:.95rem}
+.route li{padding:4px 0 4px 18px;position:relative;color:var(--fg)}
+.route li::before{content:"";position:absolute;left:4px;top:13px;width:7px;height:7px;border-radius:50%;background:var(--muted)}
+.route li+li::after{content:"";position:absolute;left:7px;top:-8px;height:12px;border-left:1px dashed var(--line)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:22px}
+@media(max-width:760px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:var(--sea-soft);border-radius:10px;padding:14px 16px;min-width:0}
+.kpi b{display:block;font-family:var(--display);font-size:1.45rem;color:var(--sea)}
+.kpi span{font-size:.85rem;color:var(--muted)}
+
+/* alerts */
+.alerts{display:grid;gap:10px;margin-top:22px}
+.alert{display:grid;grid-template-columns:34px 1fr;gap:12px;padding:14px 16px;border-radius:10px;background:var(--warn-soft);border-left:4px solid var(--warn)}
+.alert .n{font-family:var(--display);font-size:1.3rem;font-weight:800;color:var(--warn)}
+.alert b{display:block}
+.alert p{margin:2px 0 0;color:var(--fg);font-size:.95rem}
+
+/* day */
+.dayhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px;margin-bottom:6px}
+.daytag{font-family:var(--display);font-weight:800;font-size:.95rem;padding:4px 12px;border-radius:6px;color:#fff}
+.d1 .daytag{background:var(--d1)}.d2 .daytag{background:var(--d2)}.d3 .daytag{background:var(--d3)}
+.daymeta{color:var(--muted);font-size:.92rem}
+.rail{position:relative;margin-top:24px;display:grid;gap:18px}
+.stop{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:grid;grid-template-columns:300px 1fr;min-width:0}
+@media(max-width:760px){.stop{grid-template-columns:1fr}}
+.stop figure{margin:0;position:relative;min-height:200px;background:var(--sea-soft)}
+.stop figure img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.stop figure.none{display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:2.6rem;color:var(--sea);min-height:140px}
+.stop figcaption{position:absolute;left:0;bottom:0;right:0;font-size:.68rem;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.6));padding:18px 8px 5px}
+.stop .body{padding:16px 18px 18px;min-width:0}
+.time{font-family:var(--display);font-weight:800;font-size:1rem;color:var(--muted)}
+.time b{color:var(--fg)}
+.stop h3{font-size:1.3rem;margin:4px 0 2px}
+.sub{color:var(--muted);font-size:.9rem;margin:0 0 10px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 12px}
+.chip{font-size:.8rem;padding:3px 9px;border-radius:999px;background:var(--gold-soft);color:var(--gold);font-weight:500}
+.chip.rain{background:var(--rain-soft);color:var(--rain)}
+.chip.kid{background:var(--sea-soft);color:var(--sea)}
+.rows{display:grid;gap:7px;font-size:.95rem}
+.row{display:grid;grid-template-columns:5.2em 1fr;gap:10px}
+.row .k{color:var(--muted);font-size:.85rem;padding-top:2px}
+.row ul{margin:0;padding-left:18px}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 14px;border-radius:8px;text-decoration:none;font-weight:700;font-size:.9rem;border:1px solid var(--line);color:var(--fg);background:var(--bg)}
+.btn.go{background:var(--sea);color:#fff;border-color:var(--sea)}
+.btn.go::before{content:"▲";font-size:.7em;transform:rotate(45deg)}
+.btn.alt{border-color:var(--sea);color:var(--sea)}
+.plan{background:var(--rain-soft);border-radius:8px;padding:10px 14px;margin-top:12px;font-size:.92rem}
+.plan b{color:var(--rain)}
+.kid{background:var(--sea-soft);border-radius:8px;padding:10px 14px;margin-top:10px;font-size:.92rem}
+.kid b{color:var(--sea)}
+.drive{display:flex;align-items:center;gap:12px;padding:6px 18px;color:var(--muted);font-size:.9rem}
+.drive::before{content:"";width:18px;height:28px;border-left:2px dashed var(--line);margin-left:8px}
+.drive b{color:var(--fg)}
+
+/* tables */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.93rem;min-width:420px}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.8rem;letter-spacing:.06em;color:var(--muted);font-weight:500;background:var(--bg)}
+td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{font-weight:700;background:var(--gold-soft)}
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+@media(max-width:760px){.tiers{grid-template-columns:1fr}}
+.tier{border:1px solid var(--line);border-radius:10px;padding:16px 18px;background:var(--panel)}
+.tier.pick{border:2px solid var(--gold);position:relative}
+.tier.pick::after{content:"推薦";position:absolute;top:-11px;right:14px;background:var(--gold);color:#fff;font-size:.75rem;padding:2px 10px;border-radius:999px}
+.tier b.p{display:block;font-family:var(--display);font-size:1.5rem;color:var(--sea)}
+.tier ul{margin:8px 0 0;padding-left:18px;font-size:.92rem;color:var(--muted)}
+
+/* checklist */
+.check{display:grid;grid-template-columns:repeat(2,1fr);gap:8px 20px;margin-top:12px}
+@media(max-width:760px){.check{grid-template-columns:1fr}}
+.check label{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:8px;background:var(--panel);border:1px solid var(--line);cursor:pointer;font-size:.95rem}
+.check input{margin-top:5px;accent-color:var(--sea)}
+.check label:has(input:checked){opacity:.55;text-decoration:line-through}
+.contacts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+@media(max-width:760px){.contacts{grid-template-columns:1fr}}
+.contact{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:.95rem}
+.contact small{display:block;color:var(--muted)}
+.contact button{font:inherit;font-size:.82rem;padding:5px 10px;border-radius:6px;border:1px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer;white-space:nowrap}
+footer{padding-block:28px 40px;color:var(--muted);font-size:.8rem}
+footer p{margin:4px 0}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <img src="img/jiufen.jpg" alt="九份老街夜晚的紅燈籠石階">
+  <div class="txt"><div>
+    <div class="eyebrow">2026 國慶連假 · 10/9 五 — 10/11 日</div>
+    <h1>北海岸三日親子行</h1>
+    <p>內壢出發，瑞芳、金瓜石、九份、基隆、金山一路吃回桃園。一家三口、一台小客車、一位六年級男生，照表操課版。</p>
+    <div class="badges"><span class="badge">3 天 2 夜</span><span class="badge">自駕</span><span class="badge">3 大主景點</span><span class="badge">每站附雨天版</span><span class="badge">不含住宿約 $8,500–10,000</span></div>
+  </div></div>
+</header>
+
+<nav class="tabs" aria-label="章節"><div class="wrap">
+  <a href="#overview">總覽</a>
+  <a href="#day1" data-d="1">Day 1 瑞芳・九份</a>
+  <a href="#day2" data-d="2">Day 2 海科館・基隆</a>
+  <a href="#day3" data-d="3">Day 3 金山</a>
+  <a href="#budget">預算</a>
+  <a href="#prep">出發前</a>
+</div></nav>
+
+<main class="wrap">
+
+<!-- ===== 總覽 ===== -->
+<section class="block" id="overview">
+  <div class="eyebrow">Overview</div>
+  <h2>一眼看完三天路線</h2>
+  <p class="lead">三個主景點當骨架：黃金博物館、海科館、朱銘美術館。中間穿插九份、基隆、金山的小吃。下雨不必整趟重排，照每站的「雨天版」砍景點就好。</p>
+  <div class="grid3">
+    <div class="card d1"><h3>Day 1 · 10/9 五</h3><div class="eyebrow">內壢 → 瑞芳 → 金瓜石 → 九份</div>
+      <ul class="route"><li>12:00 內壢交流道出發</li><li>瑞芳美食廣場（午餐）</li><li>新北市立黃金博物館</li><li>九份山午・輝明民宿</li><li>九份老街・阿柑姨芋圓</li></ul></div>
+    <div class="card d2"><h3>Day 2 · 10/10 六</h3><div class="eyebrow">九份 → 八斗子 → 基隆</div>
+      <ul class="route"><li>九份早餐</li><li>國立海洋科技博物館</li><li>基隆阿樂哈大飯店 Check-in</li><li>陽明海洋文化藝術館</li><li>義美石頭火鍋・廟口夜市</li></ul></div>
+    <div class="card d3"><h3>Day 3 · 10/11 日</h3><div class="eyebrow">基隆 → 大武崙 → 金山 → 桃園</div>
+      <ul class="route"><li>飯店早餐</li><li>一太e衛浴觀光工廠</li><li>朱銘美術館</li><li>金包里鴨肉・金山老街</li><li>15:00 返程回桃園</li></ul></div>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><b class="num">250–320 km</b><span>三天總里程</span></div>
+    <div class="kpi"><b class="num">$2,180–2,480</b><span>門票（三人）</span></div>
+    <div class="kpi"><b class="num">$4,250–6,150</b><span>餐費（三人）</span></div>
+    <div class="kpi"><b class="num">$7,050–9,660</b><span>總計不含住宿</span></div>
+  </div>
+
+  <h3 style="margin-top:34px;font-size:1.25rem">出發前最重要的 5 件事</h3>
+  <div class="alerts">
+    <div class="alert"><div class="n">1</div><div><b>10/9–10/11 是國慶連假</b><p>別用平日 Google Maps 預估時間排行程。交通部預估車流明顯增加，本站所有車程都已抓寬 1.5 倍。</p></div></div>
+    <div class="alert"><div class="n">2</div><div><b>九份不要開車找車位</b><p>整趟最重要的一點。民宿到老街步行即可。假日官方會把車引導到新九號、水湳洞等外圍停車場轉接駁。</p></div></div>
+    <div class="alert"><div class="n">3</div><div><b>海科館是第二天的定海神針</b><p>下雨照樣玩。10/10 國定假日照常開館，連假照常開館。</p></div></div>
+    <div class="alert"><div class="n">4</div><div><b>一太e衛浴 10/10 先打電話確認</b><p>公開資料對假日／預約方式說法不一。出發前一天打 02-2434-2111 確認 10/11 可參觀。</p></div></div>
+    <div class="alert"><div class="n">5</div><div><b>第三天不要排太滿</b><p>朱銘＋金山鴨肉＋回桃園就夠了。大雨版：一太 → 朱銘室內 → 金山吃飯 → 回家，金山老街直接取消。</p></div></div>
+  </div>
+</section>
+
+<!-- ===== DAY 1 ===== -->
+<section class="block d1" id="day1">
+  <div class="dayhead"><span class="daytag">DAY 1</span><h2>10/9（五）瑞芳・金瓜石・九份</h2><span class="daymeta">內壢 → 瑞芳 → 金瓜石 → 九份 · 車程約 1.5–2 小時</span></div>
+  <p class="lead">中午出發，一路向東北。午餐在瑞芳解決，下午進黃金博物館，傍晚走進九份老街。重點只有一個：停車採外圍停車＋接駁，不硬闖。</p>
+
+  <div class="rail">
+    <article class="stop">
+      <figure class="none">🚗</figure>
+      <div class="body">
+        <div class="time"><b>12:00</b> 出發</div>
+        <h3>內壢交流道</h3>
+        <p class="sub">Google 導航第一站直接設「瑞芳美食廣場」</p>
+        <div class="rows">
+          <div class="row"><span class="k">正常車程</span><span>1 小時～1 小時 20 分</span></div>
+          <div class="row"><span class="k">連假抓</span><span><b>1 小時 30 分～2 小時</b>，預計 13:30–14:00 抵達。14:00 前到不是硬目標。</span></div>
+        </div>
+        <div class="btns"><a class="btn go" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=%E5%85%A7%E5%A3%A2%E4%BA%A4%E6%B5%81%E9%81%93&destination=%E7%91%9E%E8%8A%B3%E7%BE%8E%E9%A3%9F%E5%BB%A3%E5%A0%B4&travelmode=driving">導航到瑞芳美食廣場</a></div>
+      </div>
+    </article>
+
+    <article class="stop">
+      <figure><img src="img/ruifang.jpg" alt="瑞芳火車站站前廣場"><figcaption>瑞芳火車站站前，停這裡再步行</figcaption></figure>
+      <div class="body">
+        <div class="time"><b>13:30–14:20</b> 午餐 · 停留 40–50 分</div>
+        <h3>瑞芳美食廣場</h3>
+        <p class="sub">新北市瑞芳區民生街35巷2號 · 週五約 07:00–21:00 · Google 4.1</p>
+        <div class="chips"><span class="chip">預算 $500–700</span></div>
+        <div class="rows">
+          <div class="row"><span class="k">停車</span><span>別執著停市場旁。搜「瑞芳火車站停車場」或「瑞芳火車站前廣場」，步行過去。</span></div>
+          <div class="row"><span class="k">第一組</span><span><b>瑞芳美食豐味肉羹</b>（4.5）：肉羹 ×2、滷肉飯 ×1、燙青菜 ×1</span></div>
+          <div class="row"><span class="k">第二組</span><span>市場再挑：魚丸、米粉湯、滷味、油麻糬或甜點</span></div>
+          <div class="row"><span class="k">提醒</span><span>不要點太多，晚上還有九份小吃巡禮。</span></div>
+        </div>
+        <div class="btns"><a class="btn go" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=%E7%91%9E%E8%8A%B3%E7%BE%8E%E9%A3%9F%E5%BB%A3%E5%A0%B4&travelmode=driving">導航</a><a class="btn alt" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=%E7%91%9E%E8%8A%B3%E7%81%AB%E8%BB%8A%E7%AB%99%E5%81%9C%E8%BB%8A%E5%A0%B4">找停車場</a></div>
+      </div>
+    </article>
+
+    <div class="drive">14:20–14:50 · 瑞芳 → 黃金博物館 · 正常 20–25 分，連假抓 <b>30–40 分</b></div>
+
+    <article class="stop">
+      <figure><img src="img/gold.jpg" alt="黃金博物館金瓜石園區"><figcaption>金瓜石黃金博物館園區</figcaption></figure>
+      <div class="body">
+        <div class="time"><b>14:50–16:50</b> 主景點 · 停留 2 小時</div>
+        <h3>新北市立黃金博物館</h3>
+        <p class="sub">連假期間 09:30–18:00，10/9 不會提早關門 · Google 4.2</p>
+        <div class="chips"><span class="chip">門票三人約 $160</span><span class="chip kid">孩子任務</span><span class="chip rain">雨天版</span></div>
+        <div class="rows">
+          <div class="row"><span class="k">門票</span><span>全票 $80。未滿 12 歲國民免費、國內在學學生憑證免費。爸 $80 ＋ 媽 $80 ＋ 孩 $0。<b>記得帶學生證。</b></span></div>
+          <div class="row"><span class="k">停車</span><span>
+            <ul>
+              <li><b>第一順位：勸濟堂停車場</b>，步行到館區約 10 分鐘。</li>
+              <li>導航顯示壅塞或客滿，<b>不要硬闖</b>，直接改「新九號停車場」或「水湳洞停車場」再轉接駁車。</li>
+              <li>館區周邊車位有限，國定假日可能實施車輛管制。</li>
+            </ul></span></div>
+        </div>
+        <div class="kid"><b>黃金任務：</b>找到最大的黃金 → 找到礦坑展示 → 找一個最像「以前礦工會用」的東西 → 拍一張「黃金探險家」照片。</div>
+        <div class="plan"><b>大雨版：</b>博物館 → 民宿 Check-in → 民宿附近吃晚餐 → 早點休息。九份老街直接砍掉，石階下雨又滑又擠。</div>
+        <div class="btns"><a class="btn go" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=%E5%8B%B8%E6%BF%9F%E5%A0%82%E5%81%9C%E8%BB%8A%E5%A0%B4&travelmode=driving">導航勸濟堂停車場</a><a class="btn alt" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=%E6%96%B0%E4%B9%9D%E8%99%9F%E5%81%9C%E8%BB%8A%E5%A0%B4&travelmode=driving">備案：新九號停車場</a><a class="btn" target="_blank" rel="noopener" href="https://www.gep.ntpc.gov.tw/">官網</a></div>
+      </div>
+    </article>
+
+    <div class="drive">16:50–17:15 · 黃金博物館 → 民宿 · 正常 10–15 分，連假抓 <b>20–30 分</b></div>
+
+    <article class="stop">
+      <figure><img src="img/goldview.jpg" alt="從金瓜石望向山海的景色"><figcaption>金瓜石一帶山海景</figcaption></figure>
+      <div class="body">
+        <div class="time"><b>17:15</b> Check-in</div>
+        <h3>九份山午・輝明民宿</h3>
+        <p class="sub">新北市瑞芳區汽車路35之1號 · 電話 0953-217-143 · Google 3.9</p>
+        <div class="rows">
+          <div class="row"><span class="k">停車後</span><span><b>車子就停到隔天早上。</b>民宿到九份老街步行即可。開車進九份的下場通常是：找不到車位，再繞出來。</span></div>
+        </div>
+        <div class="btns"><a class="btn go" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=%E4%B9%9D%E4%BB%BD%E5%B1%B1%E5%8D%88%E8%BC%9D%E6%98%8E%E6%B0%91%E5%AE%BF&travelmode=driving">導航民宿</a></div>
+      </div>
+    </article>
+
+    <article class="stop">
+      <figure><img src="img/taro.jpg" alt="九份芋圓一碗"><figcaption>九份芋圓</figcaption></figure>
+      <div class="body">
+        <div class="time"><b>17:40–19:30</b> 晚餐 · 步行</div>
+        <h3>九份老街小吃巡禮 → 阿柑姨芋圓</h3>
+        <p class="sub">不要只吃一間，三個人分著吃四樣。</p>
+        <div class="chips"><span class="chip">小吃 $500–700</span><span class="chip">芋圓 $150–200</span></div>
+        <div class="tbl" style="margin-top:6px"><table>
+          <tr><th>順序</th><th>必吃</th><th class="r">預算</th></tr>
+          <tr><td>1</td><td>魚丸／魚丸湯</td><td class="r">$100–150</td></tr>
+          <tr><td>2</td><td>芋粿巧／草仔粿</td><td class="r">$50–100</td></tr>
+          <tr><td>3</td><td>滷味</td><td class="r">$150–250</td></tr>
+          <tr><td>4</td><td>19:00 阿柑姨芋圓（4.2）綜合芋圓 <b>2 碗</b>，不要三碗</td><td class="r">$150–200</td></tr>
+        </table></div>
+        <div class="btns"><a class="btn go" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=%E9%98%BF%E6%9F%91%E5%A7%A8%E8%8A%8B%E5%9C%93&travelmode=walking">步行導航阿柑姨</a></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ===== DAY 2 ===== -->
+<section class="block d2" id="day2">
+  <div class="dayhead"><span class="daytag">DAY 2</span><h2>10/10（六）海科館・基隆</h2><span class="daymeta">九份 → 八斗子 → 基隆 · 整趟旅行的核心</span></div>
+  <p class="lead">上午整個給海科館，下午進基隆市區，飯店先休息再出門。晚上火鍋加廟口。這天下雨也不影響，主景點全在室內。</p>
+
+  <div class="rail">
+    <article class="stop">
+      <figure class="none">☕</figure>
+      <div class="body">
+        <div class="time"><b>08:00–08:40</b> 早餐</div>
+        <h3>九份早餐</h3>
+        <p class="sub">直接在九份解決，不要繞去外地早餐店</p>
+        <div class="chips"><span class="chip">預算 $250–400</span></div>
+        <div class="rows"><div class="row"><span class="k">選項</span><span>飯糰、蛋餅、豆漿、小籠包、咖啡</span></div></div>
+      </div>
+    </article>
+
+    <div class="drive">08:40–09:20 · 九份 → 海科館 · 正常 25–30 分，連假抓 <b>40 分</b></div>
+
+    <article class="stop">
+      <figure><img src="img/nmmst.jpg" alt="國立海洋科技博物館主題館外觀"><figcaption>海科館主題館</figcaption></figure>
+      <div class="body">
+        <div class="time"><b>09:20–13:00</b> 主景點 · 停留 3–3.5 小時</div>
+        <h3>國立海洋科技博物館</h3>
+        <p class="sub">09:00–17:00 · 國定假日、連假照常開館 · Google 4.2</p>
+        <div class="chips"><span class="chip">門票三人 $600–900</span><span class="chip">停車假日 $50/時，當日上限 $250</span><span class="chip kid">六年級必看</span></div>
+        <div class="rows">
+          <div class="row"><span class="k">買什麼</span><span>第一次去就買<b>「主題館＋8K 海洋劇場」</b>最值得。不要一次塞所有館。</span></div>
+          <div class="row"><span class="k">停車</span><span>直接導航「海洋劇場停車場」（297 格），停好進館。備用：區域探索館停車場（148 格）。</span></div>
+          <div class="row"><span class="k">午餐</span><span>13:00–13:50 就在海科館附近簡餐解決，<b>不要此時衝基隆市區</b>，連假車流加停車會浪費一小時。預算 $500–700。</span></div>
+        </div>
+        <div class="kid"><b>必看四區：</b>海洋科學、船舶與航海、8K 海洋劇場、海洋生物。對科技、船、鯨魚、深海有興趣的孩子，3.5 小時都不夠。</div>
+        <div class="btns"><a class="btn go" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=%E5%9C%8B%E7%AB%8B%E6%B5%B7%E6%B4%8B%E7%A7%91%E6%8A%80%E5%8D%9A%E7%89%A9%E9%A4%A8%20%E6%B5%B7%E6%B4%8B%E5%8A%87%E5%A0%B4%E5%81%9C%E8%BB%8A%E5%A0%B4&travelmode=driving">導航海洋劇場停車場</a><a class="btn" target="_blank" rel="noopener" href="https://www.nmmst.gov.tw/">官網票價</a></div>
+      </div>
+    </article>
+
+    <div class="drive">13:50–14:20 · 海科館 → 飯店 · <b>20–30 分</b></div>
+
+    <article class="stop">
+      <figure><img src="img/keelung.jpg" alt="基隆港內港"><figcaption>基隆港</figcaption></figure>
+      <div class="body">
+        <div class="time"><b>14:20–15:00</b> Check-in＋休息</div>
+        <h3>基隆阿樂哈大飯店</h3>
+        <p class="sub">Google 3.2 · 這 40 分鐘休息強烈建議保留</p>
+        <div class="rows"><div class="row"><span class="k">為什麼</span><span>前一天九份石階加今天海科館三小時，孩子這時候已經開始累。先休息，晚上才走得動廟口。</span></div></div>
+        <div class="btns"><a class="btn go" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=%E5%9F%BA%E9%9A%86%E9%98%BF%E6%A8%82%E5%93%88%E5%A4%A7%E9%A3%AF%E5%BA%97&travelmode=driving">導航飯店</a></div>
+      </div>
+    </article>
+
+    <article class="stop">
+      <figure><img src="img/yangming.jpg" alt="陽明海洋文化藝術館建築外觀"><figcaption>陽明海洋文化藝術館，基隆火車站旁</figcaption></figure>
+      <div class="body">
+        <div class="time"><b>15:15–16:30</b> 停留 60–75 分</div>
+        <h3>陽明海洋文化藝術館</h3>
+        <p class="sub">週二～日 09:00–17:00 · 基隆火車站步行 3 分 · Google 4.4</p>
+        <div class="chips"><span class="chip">門票三人約 $400</span><span class="chip rain">雨大改開車</span></div>
+        <div class="rows">
+          <div class="row"><span class="k">門票</span><span>成人 $150、學生 $100。爸 $150 ＋ 媽 $150 ＋ 孩 $100。</span></div>
+          <div class="row"><span class="k">怎麼去</span><span>天氣好從飯店<b>步行</b> 15 分。雨大就開車，停「友財收費停車場」（館前）。</span></div>
+        </div>
+        <div class="btns"><a class="btn go" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=%E9%99%BD%E6%98%8E%E6%B5%B7%E6%B4%8B%E6%96%87%E5%8C%96%E8%97%9D%E8%A1%93%E9%A4%A8&travelmode=walking">步行導航</a><a class="btn alt" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=%E5%8F%8B%E8%B2%A1%E6%94%B6%E8%B2%BB%E5%81%9C%E8%BB%8A%E5%A0%B4%20%E5%9F%BA%E9%9A%86">雨天：友財停車場</a></div>
+      </div>
+    </article>
+
+    <article class="stop">
+      <figure class="none">🍲</figure>
+      <div class="body">
+        <div class="time"><b>17:00–18:30</b> 晚餐</div>
+        <h3>義美石頭火鍋</h3>
+        <p class="sub">基隆市中正區信二路303號 · Google 4.3</p>
+        <div class="chips"><span class="chip">預算 $900–1,200</span></div>
+        <div class="tbl" style="margin-top:6px"><table>
+          <tr><th>點法（不要每人一鍋）</th><th class="r">預算</th></tr>
+          <tr><td>石頭火鍋 ×2 鍋</td><td class="r">$500–700</td></tr>
+          <tr><td>肉盤／海鮮</td><td class="r">$250–400</td></tr>
+          <tr><td>火鍋料</td><td class="r">$150–250</td></tr>
+          <tr><td>白飯／飲料</td><td class="r">$100</td></tr>
+        </table></div>
+        <div class="btns"><a class="btn go" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=%E7%BE%A9%E7%BE%8E%E7%9F%B3%E9%A0%AD%E7%81%AB%E9%8D%8B%20%E5%9F%BA%E9%9A%86%E5%B8%82%E4%B8%AD%E6%AD%A3%E5%8D%80%E4%BF%A1%E4%BA%8C%E8%B7%AF303%E8%99%9F">導航</a></div>
+      </div>
+    </article>
+
+    <article class="stop">
+      <figure><img src="img/miaokou.jpg" alt="基隆廟口夜市入口"><figcaption>基隆廟口夜市</figcaption></figure>
+      <div class="body">
+        <div class="time"><b>18:30–20:00</b> 夜市</div>
+        <h3>基隆廟口夜市</h3>
+        <p class="sub">剛吃完火鍋，這裡不再吃正餐</p>
+        <div class="chips"><span class="chip">預算 $300–500</span><span class="chip rain">雨天版</span></div>
+        <div class="rows">
+          <div class="row"><span class="k">規則</span><span><b>「三個人各選一樣」</b>。例如：爸爸營養三明治、媽媽天婦羅或蚵仔煎、小孩泡泡冰或甜點。</span></div>
+        </div>
+        <div class="plan"><b>18:00 雨很大：</b>不去廟口。火鍋 → 飯店。甚至火鍋改成飯店附近外帶，最舒服。</div>
+        <div class="btns"><a class="btn go" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=%E5%9F%BA%E9%9A%86%E5%BB%9F%E5%8F%A3%E5%A4%9C%E5%B8%82&travelmode=walking">步行導航</a></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ===== DAY 3 ===== -->
+<section class="block d3" id="day3">
+  <div class="dayhead"><span class="daytag">DAY 3</span><h2>10/11（日）大武崙・金山・返程</h2><span class="daymeta">基隆 → 大武崙 → 金山 → 桃園 · 連假最後一天，返程抓寬</span></div>
+  <p class="lead">早上一個免費觀光工廠暖身，中午前進朱銘美術館，金山吃鴨肉買地瓜，15:00 開始返程。不要把「16:30 一定到家」當目標。</p>
+
+  <div class="rail">
+    <article class="stop">
+      <figure class="none">☕</figure>
+      <div class="body">
+        <div class="time"><b>08:00–08:40</b> 早餐</div>
+        <h3>飯店早餐</h3>
+        <p class="sub">住宿有附就直接吃，沒有就附近找早餐店</p>
+        <div class="chips"><span class="chip">預算 $250–350</span></div>
+      </div>
+    </article>
+
+    <div class="drive">08:40–09:00 · 飯店 → 一太e衛浴 · <b>15–25 分</b></div>
+
+    <article class="stop">
+      <figure class="none">🚽</figure>
+      <div class="body">
+        <div class="time"><b>09:00–10:00</b> 免費景點</div>
+        <h3>一太e衛浴觀光工廠</h3>
+        <p class="sub">09:00–17:00 · 免費參觀 · Google 4.4</p>
+        <div class="chips"><span class="chip">免費</span><span class="chip kid">孩子任務</span><span class="chip">⚠ 10/10 先電話確認</span></div>
+        <div class="rows">
+          <div class="row"><span class="k">停車</span><span>不是大型停車場景點，官方寫「於路邊找尋停車位」。<b>先讓媽媽＋小孩下車，爸爸找路邊合法車位。</b></span></div>
+          <div class="row"><span class="k">確認</span><span>出發前一天打 <b class="num">02-2434-2111</b> 確認 10/11 可參觀。</span></div>
+        </div>
+        <div class="kid"><b>任務：</b>找全台灣最奇怪的馬桶 ＋ 拍一張最爆笑的 3D 照片。這比「衛浴文化」四個字有吸引力多了。</div>
+        <div class="btns"><a class="btn go" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=%E4%B8%80%E5%A4%AAe%E8%A1%9B%E6%B5%B4%E8%A7%80%E5%85%89%E5%B7%A5%E5%BB%A0&travelmode=driving">導航</a></div>
+      </div>
+    </article>
+
+    <div class="drive">10:00–10:50 · 一太 → 朱銘美術館 · 正常 35–45 分，下雨加假日抓 <b>50–60 分</b></div>
+
+    <article class="stop">
+      <figure><img src="img/juming.jpg" alt="朱銘美術館園區與金字塔建築"><figcaption>朱銘美術館園區</figcaption></figure>
+      <div class="body">
+        <div class="time"><b>11:00–13:00</b> 主景點 · 停留 2 小時</div>
+        <h3>朱銘美術館</h3>
+        <p class="sub">10:00–17:00 · 國定假日照常開館 · Google 4.6</p>
+        <div class="chips"><span class="chip">門票三人 $1,020</span><span class="chip">有專屬停車場</span><span class="chip rain">雨天分級</span></div>
+        <div class="rows">
+          <div class="row"><span class="k">門票</span><span>成人 $350、學生 $320。$350 ＋ $350 ＋ $320 ＝ <b>$1,020</b>，整趟最貴的單一景點。</span></div>
+          <div class="row"><span class="k">停車</span><span>這站不用煩惱，直接導航「朱銘美術館停車場」。</span></div>
+        </div>
+        <div class="plan"><b>雨天玩法：</b>小雨 → 室內 → 戶外雕塑 → 室內。中雨 → 室內為主。大雨 → 戶外雕塑全部放棄，<b>千萬不要為了「門票都買了」硬逛</b>。</div>
+        <div class="btns"><a class="btn go" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=%E6%9C%B1%E9%8A%98%E7%BE%8E%E8%A1%93%E9%A4%A8%E5%81%9C%E8%BB%8A%E5%A0%B4&travelmode=driving">導航停車場</a><a class="btn" target="_blank" rel="noopener" href="https://www.juming.org.tw/">官網票價</a></div>
+      </div>
+    </article>
+
+    <div class="drive">13:00–13:10 · 朱銘 → 金山 · <b>15–20 分</b></div>
+
+    <article class="stop">
+      <figure><img src="img/jinshan.jpg" alt="金山金包里老街入口"><figcaption>金山金包里老街</figcaption></figure>
+      <div class="body">
+        <div class="time"><b>13:10–15:00</b> 午餐＋伴手禮</div>
+        <h3>金包里鴨肉 → 金山老街</h3>
+        <p class="sub">金包里鴨肉 Google 3.7 · 老街定位是「吃甜點＋買伴手禮」，不是大景點</p>
+        <div class="chips"><span class="chip">鴨肉 $700–1,000</span><span class="chip">老街 $200–400</span></div>
+        <div class="tbl" style="margin-top:6px"><table>
+          <tr><th>金包里鴨肉點法（不要每人一份）</th><th>金山老街必買</th></tr>
+          <tr><td>鴨肉 1 盤、炒青菜 1 盤、炒麵或炒飯 1 份、湯 1 份。孩子很會吃再加一盤小菜。</td><td>1. 金山地瓜　2. 地瓜點心　3. 冰或甜品</td></tr>
+        </table></div>
+        <div class="btns"><a class="btn go" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=%E9%87%91%E5%8C%85%E9%87%8C%E9%B4%A8%E8%82%89&travelmode=driving">導航金包里鴨肉</a><a class="btn alt" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=%E9%87%91%E5%B1%B1%E8%80%81%E8%A1%97">金山老街</a></div>
+      </div>
+    </article>
+
+    <article class="stop">
+      <figure class="none">🏠</figure>
+      <div class="body">
+        <div class="time"><b>15:00–16:30+</b> 返程</div>
+        <h3>金山 → 桃園／內壢</h3>
+        <p class="sub">正常 1 小時～1 小時 20 分，連假返程抓 <b>1.5–2 小時以上</b></p>
+        <div class="rows"><div class="row"><span class="k">心態</span><span>連假最後一天，到家時間看路況。不要把 16:30 當硬目標。</span></div></div>
+        <div class="btns"><a class="btn go" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=%E5%85%A7%E5%A3%A2%E4%BA%A4%E6%B5%81%E9%81%93&travelmode=driving">導航回內壢</a></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ===== 預算 ===== -->
+<section class="block" id="budget">
+  <div class="eyebrow">Budget</div>
+  <h2>一家三口預算表</h2>
+  <p class="lead">以一般小客車、一位六年級學生、不含兩晚住宿估算。含住宿整趟建議抓 $11,000–14,000。</p>
+
+  <h3 style="font-size:1.15rem;margin:18px 0 10px">逐餐預算</h3>
+  <div class="tbl"><table>
+    <tr><th>日期</th><th>餐次</th><th class="r">建議預算</th></tr>
+    <tr><td>10/9</td><td>瑞芳午餐</td><td class="r">$500–700</td></tr>
+    <tr><td>10/9</td><td>九份晚餐小吃</td><td class="r">$500–700</td></tr>
+    <tr><td>10/9</td><td>阿柑姨芋圓</td><td class="r">$150–200</td></tr>
+    <tr><td>10/10</td><td>九份早餐</td><td class="r">$250–400</td></tr>
+    <tr><td>10/10</td><td>海科館午餐</td><td class="r">$500–700</td></tr>
+    <tr><td>10/10</td><td>義美石頭火鍋</td><td class="r">$900–1,200</td></tr>
+    <tr><td>10/10</td><td>廟口小吃</td><td class="r">$300–500</td></tr>
+    <tr><td>10/11</td><td>早餐</td><td class="r">$250–350</td></tr>
+    <tr><td>10/11</td><td>金包里鴨肉</td><td class="r">$700–1,000</td></tr>
+    <tr><td>10/11</td><td>金山甜點／伴手禮</td><td class="r">$200–400</td></tr>
+    <tr class="total"><td colspan="2">餐費合計</td><td class="r">$4,250–6,150</td></tr>
+  </table></div>
+
+  <h3 style="font-size:1.15rem;margin:26px 0 10px">門票</h3>
+  <div class="tbl"><table>
+    <tr><th>景點</th><th class="r">爸爸</th><th class="r">媽媽</th><th class="r">六年級</th><th class="r">小計</th></tr>
+    <tr><td>黃金博物館</td><td class="r">$80</td><td class="r">$80</td><td class="r">免費*</td><td class="r">$160</td></tr>
+    <tr><td>海科館</td><td class="r">$200–300</td><td class="r">$200–300</td><td class="r">$200–300</td><td class="r">$600–900</td></tr>
+    <tr><td>陽明海洋文化藝術館</td><td class="r">$150</td><td class="r">$150</td><td class="r">$100</td><td class="r">$400</td></tr>
+    <tr><td>一太e衛浴</td><td class="r">免費</td><td class="r">免費</td><td class="r">免費</td><td class="r">$0</td></tr>
+    <tr><td>朱銘美術館</td><td class="r">$350</td><td class="r">$350</td><td class="r">$320</td><td class="r">$1,020</td></tr>
+    <tr class="total"><td colspan="4">門票合計</td><td class="r">$2,180–2,480</td></tr>
+  </table></div>
+  <p style="font-size:.85rem;color:var(--muted);margin:8px 0 0">*未滿 12 歲國民或國內在學學生憑證免費。海科館票價依選館而異，以區間估算。</p>
+
+  <h3 style="font-size:1.15rem;margin:26px 0 10px">交通</h3>
+  <div class="tbl"><table>
+    <tr><th>項目</th><th>說明</th><th class="r">預算</th></tr>
+    <tr><td>油資</td><td>約 250–320 km，12 km/L、汽油 $30–31/L 約 $650–830；連假塞車耗油多，直接抓 $1,000</td><td class="r">$1,000</td></tr>
+    <tr><td>停車 Day 1</td><td>瑞芳站前、勸濟堂或外圍停車場</td><td class="r">$100–250</td></tr>
+    <tr><td>停車 Day 2</td><td>海科館假日上限 $250／日</td><td class="r">$250</td></tr>
+    <tr><td>停車 Day 3</td><td>一太路邊、朱銘停車場</td><td class="r">$100–200</td></tr>
+    <tr class="total"><td colspan="2">交通合計</td><td class="r">約 $1,450–1,700</td></tr>
+  </table></div>
+
+  <h3 style="font-size:1.15rem;margin:26px 0 4px">錢包版：三種抓法</h3>
+  <div class="tiers">
+    <div class="tier"><div class="eyebrow">經濟型</div><b class="p num">$7,000–8,500</b><ul><li>吃得比較簡單</li><li>少買伴手禮</li></ul></div>
+    <div class="tier pick"><div class="eyebrow">舒服型</div><b class="p num">$8,500–10,000</b><ul><li>每餐正常吃</li><li>海科館、朱銘、芋圓、廟口全上</li><li>一些伴手禮、停車、油資</li><li>不需要每餐斤斤計較</li></ul></div>
+    <div class="tier"><div class="eyebrow">寬鬆型</div><b class="p num">$10,000–12,000</b><ul><li>多點幾道菜、多買伴手禮</li><li>喝咖啡</li><li>不必一直算每一百元</li></ul></div>
+  </div>
+</section>
+
+<!-- ===== 出發前 ===== -->
+<section class="block" id="prep">
+  <div class="eyebrow">Before you go</div>
+  <h2>出發前檢查</h2>
+  <p class="lead">勾選狀態只存在這支手機的瀏覽器。</p>
+  <div class="check">
+    <label><input type="checkbox" id="c1">孩子的學生證（黃金博物館、陽明館、朱銘都用得到）</label>
+    <label><input type="checkbox" id="c2">10/10 打 02-2434-2111 確認一太e衛浴 10/11 可參觀</label>
+    <label><input type="checkbox" id="c3">民宿確認入住：0953-217-143</label>
+    <label><input type="checkbox" id="c4">雨具三份、九份用的防滑鞋</label>
+    <label><input type="checkbox" id="c5">零錢與悠遊卡（停車、夜市、接駁車）</label>
+    <label><input type="checkbox" id="c6">保溫瓶、暈車藥（九份山路）</label>
+    <label><input type="checkbox" id="c7">車上充電線、手機離線地圖</label>
+    <label><input type="checkbox" id="c8">把本站加到手機主畫面</label>
+  </div>
+
+  <h3 style="font-size:1.15rem;margin:26px 0 4px">聯絡與地址</h3>
+  <div class="contacts">
+    <div class="contact"><div>九份山午・輝明民宿<small>新北市瑞芳區汽車路35之1號 · 0953-217-143</small></div><button type="button" data-copy="0953-217-143">複製電話</button></div>
+    <div class="contact"><div>一太e衛浴觀光工廠<small>確認假日開放 · 02-2434-2111</small></div><button type="button" data-copy="02-2434-2111">複製電話</button></div>
+    <div class="contact"><div>瑞芳美食廣場<small>新北市瑞芳區民生街35巷2號</small></div><button type="button" data-copy="新北市瑞芳區民生街35巷2號">複製地址</button></div>
+    <div class="contact"><div>義美石頭火鍋<small>基隆市中正區信二路303號</small></div><button type="button" data-copy="基隆市中正區信二路303號">複製地址</button></div>
+  </div>
+
+  <h3 style="font-size:1.15rem;margin:26px 0 10px">這趟行程的體質</h3>
+  <div class="tbl"><table>
+    <tr><th>項目</th><th>評分</th></tr>
+    <tr><td>雨天適應度</td><td>★★★★★</td></tr>
+    <tr><td>六年級男生</td><td>★★★★½</td></tr>
+    <tr><td>美食</td><td>★★★★★</td></tr>
+    <tr><td>開車方便度</td><td>★★★★☆</td></tr>
+    <tr><td>國慶連假適合度</td><td>★★★★☆</td></tr>
+    <tr><td>行程會不會太累</td><td>★★★★☆</td></tr>
+    <tr><td>親子回憶</td><td>★★★★★</td></tr>
+  </table></div>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <p>營業時間、票價以各館官網當日公告為準。車程已依國慶連假車流放寬估算。</p>
+  <p>照片來源 Wikimedia Commons：九份 Sunkenbean (CC BY-SA 4.0)・黃金博物館 CT Snow (CC BY 2.0)・金瓜石 阿道 (CC BY-SA 4.0)・海科館 SSR2000 (CC BY-SA 3.0)・基隆港、廟口 Bigmorr (CC BY-SA 4.0 / CC0)・陽明館 Mrmarkertw (CC BY-SA 4.0)・朱銘美術館 Juming museum pr (CC BY-SA 4.0)・金山老街 Pbdragonwang (CC BY-SA 4.0)・瑞芳站 Padai (CC BY-SA 4.0)・芋圓 Raychang27 (CC BY-SA 3.0)</p>
+</footer>
+
+<script>
+(function(){
+  // sticky tab highlight
+  var links=[].slice.call(document.querySelectorAll('.tabs a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
+  function mark(i){links.forEach(function(a,j){a.classList.toggle('on',j===i)})}
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)mark(secs.indexOf(e.target))})},{rootMargin:'-45% 0px -50% 0px'});
+    secs.forEach(function(s){if(s)io.observe(s)});
+  }
+  mark(0);
+  // checklist persistence
+  var boxes=document.querySelectorAll('.check input');
+  boxes.forEach(function(b){
+    try{b.checked=localStorage.getItem('nc3_'+b.id)==='1'}catch(e){}
+    b.addEventListener('change',function(){try{localStorage.setItem('nc3_'+b.id,b.checked?'1':'0')}catch(e){}});
+  });
+  // copy buttons
+  document.querySelectorAll('[data-copy]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var t=btn.getAttribute('data-copy'),done=function(){btn.textContent='已複製';setTimeout(function(){btn.textContent=btn.dataset.label},1500)};
+      btn.dataset.label=btn.dataset.label||btn.textContent;
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,function(){fallback()})}else{fallback()}
+      function fallback(){var s=btn.previousElementSibling.querySelector('small');var r=document.createRange();r.selectNodeContents(s);var sel=getSelection();sel.removeAllRanges();sel.addRange(r);btn.textContent='請長按複製'}
+    });
+  });
+})();
+</script>
+</body>
+</html>
